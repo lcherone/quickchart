@@ -17,6 +17,10 @@ const { renderChart } = require('./lib/charts');
 const { toChartJs } = require('./lib/google_image_charts');
 const { renderQr, DEFAULT_QR_SIZE } = require('./lib/qr');
 
+require('dotenv').config({
+  path: __dirname + '/.env',
+});
+
 const app = express();
 
 const isDev = app.get('env') === 'development' || app.get('env') === 'test';
@@ -35,6 +39,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded());
 
+/*
 if (process.env.RATE_LIMIT_PER_MIN) {
   const limitMax = parseInt(process.env.RATE_LIMIT_PER_MIN, 10);
   logger.info('Enabling rate limit:', limitMax);
@@ -70,16 +75,18 @@ if (process.env.RATE_LIMIT_PER_MIN) {
   });
   app.use('/chart', limiter);
 }
+*/
 
-expressNunjucks(app, {
-  watch: isDev,
-  noCache: isDev,
-});
+// expressNunjucks(app, {
+//   watch: isDev,
+//   noCache: isDev,
+// });
 
-app.get('/', (req, res) => {
-  res.render('index');
-});
+// app.get('/', (req, res) => {
+//   res.status(404).send('Not found');
+// });
 
+/*
 app.get('/pricing', (req, res) => {
   res.render('pricing');
 });
@@ -122,6 +129,7 @@ app.get('/api/account/:key', (req, res) => {
     numRecentRequests: apiKeys.getNumRecentRequests(key),
   });
 });
+*/
 
 function failPng(res, msg) {
   res.writeHead(500, {
@@ -270,7 +278,7 @@ app.get('/chart', (req, res) => {
     doRenderChart(req, res, opts);
   }
 
-  telemetry.count('chartCount');
+  //telemetry.count('chartCount');
 });
 
 app.post('/chart', (req, res) => {
@@ -290,7 +298,7 @@ app.post('/chart', (req, res) => {
     doRenderChart(req, res, opts);
   }
 
-  telemetry.count('chartCount');
+  //telemetry.count('chartCount');
 });
 
 app.get('/qr', (req, res) => {
@@ -345,11 +353,12 @@ app.get('/qr', (req, res) => {
       failPng(res, err);
     });
 
-  telemetry.count('qrCount');
+  //telemetry.count('qrCount');
 });
 
 app.get('/gchart', handleGChart);
 
+/*
 app.get('/healthcheck', (req, res) => {
   // A lightweight healthcheck endpoint.
   res.send({ success: true, version: packageJson.version });
@@ -372,6 +381,7 @@ app.get('/healthcheck/chart', (req, res) => {
 `;
   res.redirect(`/chart?c=${template}`);
 });
+*/
 
 const port = process.env.PORT || 3400;
 const server = app.listen(port);

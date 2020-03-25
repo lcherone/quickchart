@@ -38,7 +38,8 @@
     "rate-limit-redis": "^1.7.0",
     "request": "^2.88.0",
     "text2png": "^2.1.0",
-    "vm2": "^3.8.4"
+    "vm2": "^3.8.4",
+    "dotenv": "^8.2.0"
   },
   "devDependencies": {
     "@arkweid/lefthook": "^0.6.3",

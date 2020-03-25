@@ -64,6 +64,7 @@ function send() {
   telemetry = {};
 }
 
+/*
 if (process.env.ENABLE_TELEMETRY_WRITE) {
   logger.info('Telemetry writing is enabled');
   setInterval(() => {
@@ -76,6 +77,7 @@ if (!process.env.DISABLE_TELEMETRY) {
     send();
   }, 1000 * 60 * 60 * 12);
 }
+*/
 
 module.exports = {
   count,
